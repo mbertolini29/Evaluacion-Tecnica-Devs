@@ -25,7 +25,7 @@ public class SolarSystem : SolarSystemManager
             nameCelestialObjects = "Sol",
             radius = 696.34f, //696.340 km
             locationCelestialObjects = new Vector3(0.0f, 0.0f, 0.0f),
-            //naturalSatellite = null
+            naturalSatellite = null
         };
         celestialObjectsSS.Add(celestialBody);
 
@@ -35,8 +35,8 @@ public class SolarSystem : SolarSystemManager
             celestialBodyGameObject = celestialGameObject[1],
             nameCelestialObjects = "Venus",
             radius = 6.05f, // 6.051,8 km
-            locationCelestialObjects = new Vector3(0.72f, 0.0f, 0.0f) //108 millones de Km
-            //naturalSatellite = null;
+            locationCelestialObjects = new Vector3(0.72f, 0.0f, 0.0f), //108 millones de Km
+            naturalSatellite = null
         };
         celestialObjectsSS.Add(celestialBody);
 
@@ -47,7 +47,7 @@ public class SolarSystem : SolarSystemManager
             nameCelestialObjects = "Tierra",
             radius = 6.37f, //6.371 km
             locationCelestialObjects = new Vector3(1.0f, 0.0f, 0.0f), //149,6 millones de Km
-            //naturalSatellite = null;
+            naturalSatellite = null
         };
 
         celestialObjectsSS.Add(celestialBody);
@@ -111,5 +111,6 @@ public class SolarSystem : SolarSystemManager
     // Update is called once per frame
     void Update()
     {
+
     }
 }

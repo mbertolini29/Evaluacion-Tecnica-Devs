@@ -7,7 +7,10 @@ public class PlayerNetwork : NetworkBehaviour
 {
     public static PlayerNetwork instance;
 
-    [Header("Movement Controller")]
+    [SerializeField] Transform spawnedObjectPrefab;
+    Transform spawnedObjectTransform;
+
+     [Header("Movement Controller")]
     public Vector3 moveInput;
     public float moveSpeed = 10f;
 
@@ -23,7 +26,7 @@ public class PlayerNetwork : NetworkBehaviour
         instance = this;
     }
 
-    void Start()
+    void Start() 
     {
         
     }
@@ -33,6 +36,17 @@ public class PlayerNetwork : NetworkBehaviour
         //si no sos el propietario, regresa
         //para que no se ejecute en otros prefab
         if (!IsOwner) return;
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            spawnedObjectTransform = Instantiate(spawnedObjectPrefab);
+            spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true); //spawn=aparecer
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Destroy(spawnedObjectTransform.gameObject);
+        }
 
         //para que el movimiento y la camara se mueva en base al jugador,
         Vector3 verMove = transform.up * Input.GetAxis("Vertical");

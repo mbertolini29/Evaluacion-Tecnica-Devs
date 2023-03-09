@@ -23,5 +23,13 @@ public class NetworkManagerUI : MonoBehaviour
         clientBtn.onClick.AddListener( () => {
             NetworkManager.Singleton.StartClient();
         });
+
+        
+    }
+
+    public void StopServer()
+    {
+        NetworkManager.Singleton.Shutdown();
+        //Destroy(NetworkManager.Singleton.gameObject);
     }
 }

@@ -20,6 +20,11 @@ public class HexGrid : MonoBehaviour
     [Header("Rendering Hexagons")]
     [SerializeField] HexMesh hexMesh;
 
+    [Header("Coloring Hexes")]
+    public Color defaultColor = Color.white;
+    //public Color color;
+    //public Color touchedColor = Color.magenta;
+
     private void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
@@ -41,6 +46,37 @@ public class HexGrid : MonoBehaviour
         hexMesh.Triangulate(cells);
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            HandleInput(); //Manejar entrada
+        }
+    }
+
+    void HandleInput()
+    {
+        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(inputRay, out hit))
+        {
+            //TouchCell(hit.point);
+            //ColorCell(hit.point);
+        }
+    }
+
+    public void ColorCell(Vector3 position, Color color)
+    {
+        position = transform.InverseTransformDirection(position);
+        //para saber que celda tocamos
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        //Debug.Log("touched at " + coordinates.ToString());
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = cells[index];
+        cell.color = color;
+        hexMesh.Triangulate(cells);
+    }
+
     void CreateCell(int x, int z, int i)
     {
         Vector3 position;
@@ -52,6 +88,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        cell.color = defaultColor;
 
         //etiqueta
         Text label = Instantiate<Text>(cellLabelPrefab);    
@@ -59,5 +96,4 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
     }
-
 }

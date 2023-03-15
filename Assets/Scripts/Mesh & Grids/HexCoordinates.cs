@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements.Experimental;
+
+[System.Serializable]
+public struct HexCoordinates 
+{
+    public int X { get; set; }
+    public int Z { get; set; }
+
+    public int Y 
+    { 
+        get { return -X - Z; } 
+    }
+
+    public HexCoordinates (int x, int z)
+    {
+        X = x;
+        Z = z;
+    }
+
+    public static HexCoordinates FromOffsetCoordinates(int x, int z)
+    {
+        return new HexCoordinates(x - z / 2, z);
+    }
+
+    public override string ToString()
+    {
+        return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")"; 
+    }
+
+    public string ToStringOnSeparateLines()
+    {
+        return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
+    }
+}

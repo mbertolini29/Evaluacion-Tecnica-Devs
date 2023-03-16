@@ -10,7 +10,8 @@ public enum HexDirection
 
 public static class HexDirectionExtensions
 {
-    public static HexDirection opposite (this HexDirection direction)
+    //metodo de extension.
+    public static HexDirection Opposite (this HexDirection direction)
     {
         return (int)direction < 3 ? (direction + 3) : (direction - 3);
     }
@@ -35,7 +36,7 @@ public class HexCell : MonoBehaviour
     {
         neighbors[(int)direction] = cell;
         //los vecinos son bidireccionales, por lo tanto configuras la direccion opuesta.
-        //cell.neighbors[(int)direction.Opposite()] = this;
+        cell.neighbors[(int)direction.Opposite()] = this;
 
     }
 

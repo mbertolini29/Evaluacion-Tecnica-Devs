@@ -30,8 +30,8 @@ public class HexGrid : MonoBehaviour
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
 
-        cells = new HexCell[width * height];    
-        
+        cells = new HexCell[width * height];
+
         for (int z = 0, i = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
@@ -70,6 +70,33 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.color = defaultColor;
+
+        if (x > 0) //Los vecinos este y oeste están conectados.
+        {
+            cell.SetNeighbor(HexDirection.W, cells[i - 1]);
+        }
+        if (z > 0)
+        {
+            if ((z & 1) == 0)
+            {
+                cell.SetNeighbor(HexDirection.SE, cells[i - width]);
+                //conectarnos a los vecinos SW.
+                //Excepto por la primera celda de cada fila, ya que no la tiene
+                if (x > 0) 
+                {
+                    cell.SetNeighbor(HexDirection.SW, cells[i - width - 1]);
+                }
+            }
+            else
+            {   //ayuda a conectar los vecinos restantes
+                cell.SetNeighbor(HexDirection.SW, cells[i - width]);
+                if(x < width - 1)
+                {
+                    cell.SetNeighbor(HexDirection.SE, cells[i - width + 1]);
+                }
+            }
+
+        }
 
         //etiqueta
         Text label = Instantiate<Text>(cellLabelPrefab);    

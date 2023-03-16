@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,7 +283,7 @@ MonoBehaviour:
   gridCanvas: {fileID: 0}
   cellLabelPrefab: {fileID: 6953114629552398263}
   hexMesh: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
 --- !u!4 &682310338
 Transform:
   m_ObjectHideFlags: 0
@@ -650,6 +650,7 @@ MonoBehaviour:
   - {r: 1, g: 0.9696857, b: 0, a: 0}
   - {r: 0.09344962, g: 0.20092258, b: 0.9433962, a: 0}
   hexGrid: {fileID: 682310337}
+  numColor: 0
 --- !u!1 &1831736990
 GameObject:
   m_ObjectHideFlags: 0

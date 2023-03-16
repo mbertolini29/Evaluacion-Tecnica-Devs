@@ -46,25 +46,6 @@ public class HexGrid : MonoBehaviour
         hexMesh.Triangulate(cells);
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            HandleInput(); //Manejar entrada
-        }
-    }
-
-    void HandleInput()
-    {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if(Physics.Raycast(inputRay, out hit))
-        {
-            //TouchCell(hit.point);
-            //ColorCell(hit.point);
-        }
-    }
-
     public void ColorCell(Vector3 position, Color color)
     {
         position = transform.InverseTransformDirection(position);

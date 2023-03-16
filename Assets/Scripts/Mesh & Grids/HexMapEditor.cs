@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HexMapEditor : MonoBehaviour
 {
@@ -8,18 +9,24 @@ public class HexMapEditor : MonoBehaviour
 
     public HexGrid hexGrid;
 
+    public int numColor = 0;
     Color activeColor;
 
     private void Awake()
     {
-        SelectColor(0);
+        SelectColor(numColor);
     }
 
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0)) // && !EventSystem.current.IsPointerOverGameObject())
         {
             HandleInput();
+            SelectColor(numColor++);
+            if (numColor >= 4)
+            {
+                numColor = 0;
+            }
         }
     }
 
@@ -30,6 +37,7 @@ public class HexMapEditor : MonoBehaviour
         if(Physics.Raycast(inputRay, out hit) )
         {
             hexGrid.ColorCell(hit.point, activeColor);
+         
         }
     }
 

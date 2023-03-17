@@ -55,7 +55,24 @@ public class HexGrid : MonoBehaviour
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         HexCell cell = cells[index];
         cell.color = color;
+
+        //para mi aca, controlaria el color de las celdas en transicion.
+        //la preg es como?
+
+        //tenes que controlar si el vecino de la derecha tiene un vecino con color, 
+        //tiene color,
+        //si es asi, cual? 
+        //anotarlo
+        //el vecino diagonal tiene color?
+        //pintar al vecino con el color de transicion.
+        //
+
         hexMesh.Triangulate(cells);
+    }
+
+    void TransitionCell()
+    {
+
     }
 
     void CreateCell(int x, int z, int i)

@@ -1,19 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum HexColorEnum 
+{
+    white, red, yellow, blue /*, violet, black, orange, green*/
+}
+
+public enum cellColorTransition 
+{
+    violet, black, orange, green
+}
+
 public class HexMapEditor : MonoBehaviour
 {
     public Color[] colors;
+    public Color[] colorsTansition;
 
     public HexGrid hexGrid;
 
-    public int numColor = 0;
+    public int numColor;
     Color activeColor;
 
     private void Awake()
     {
+        numColor = (int)HexColorEnum.white;
         SelectColor(numColor);
     }
 
@@ -23,7 +36,8 @@ public class HexMapEditor : MonoBehaviour
         {
             HandleInput();
             SelectColor(numColor++);
-            if (numColor >= 4)
+
+            if (numColor >= Enum.GetValues(typeof(HexColorEnum)).Length)
             {
                 numColor = 0;
             }
@@ -36,8 +50,12 @@ public class HexMapEditor : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(inputRay, out hit) )
         {
-            hexGrid.ColorCell(hit.point, activeColor);
-         
+            hexGrid.ColorCell(hit.point, activeColor);      
+            
+            //se pinta tal grilla. 
+            //sabes que grilla se pinto?
+            //su vecino, de cada direccion, tiene mas de un color?
+
         }
     }
 

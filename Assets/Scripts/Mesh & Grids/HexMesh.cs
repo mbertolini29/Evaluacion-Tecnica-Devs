@@ -39,7 +39,7 @@ public class HexMesh : MonoBehaviour
 
         hexMesh.vertices = vertices.ToArray();
         hexMesh.triangles = triangles.ToArray();
-        hexMesh.colors = colors.ToArray();  
+        hexMesh.colors = colors.ToArray();
         hexMesh.RecalculateNormals();
 
         //Desp de triangular le asignamos la malla  
@@ -48,19 +48,42 @@ public class HexMesh : MonoBehaviour
 
     void Triangulate (HexCell cell)
     {
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+        {
+            Triangulate(d, cell);
+        }
+    }
+
+    void Triangulate (HexDirection direction, HexCell cell)
+    {
         Vector3 center = cell.transform.localPosition;
 
         for (int i = 0; i < 6; i++)
         {
             AddTriangle(
                  center,
-                 center + HexMetrics.corners[i],
-                 center + HexMetrics.corners[i + 1]
+                 center + HexMetrics.GetFirstSolidCorner(direction),
+                 center + HexMetrics.GetSecondSolidCorner(direction)
+             //center + HexMetrics.corners[(int)direction],
+             //center + HexMetrics.corners[(int)direction + 1]
              );
+            // a ?? b  // .a != null ? a : b
             //color para cada triangulo
-            AddTriangleColor(cell.color);
-        }     
+            HexCell prevNeighbor = cell.GetNighbor(direction.Previous()) ?? cell;
+            HexCell neighbor = cell.GetNighbor(direction) ?? cell;
+            HexCell nextNeighbor = cell.GetNighbor(direction.Next()) ?? cell;
+
+            //Color edgeColor = (cell.color + neighbor.color) * 0.5f;
+
+            AddTriangleColor(
+                cell.color,
+                (cell.color + prevNeighbor.color + neighbor.color) / 3f,
+                (cell.color + neighbor.color + nextNeighbor.color) / 3f
+            );
+        }
     }
+
+
 
     void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
     {
@@ -73,10 +96,10 @@ public class HexMesh : MonoBehaviour
         triangles.Add(vertexIndex + 2);
     }
 
-    void AddTriangleColor(Color color)
+    void AddTriangleColor(Color c1, Color c2, Color c3)
     {
-        colors.Add(color);
-        colors.Add(color);
-        colors.Add(color);
+        colors.Add(c1);
+        colors.Add(c2);
+        colors.Add(c3);
     }
 }
